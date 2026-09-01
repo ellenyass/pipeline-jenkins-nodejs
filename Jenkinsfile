@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Instalar dependências') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'npm run build'
+            }
+        }
+
+        stage('Teste') {
+            steps {
+                bat 'npm test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline executada com sucesso!'
+        }
+
+        failure {
+            echo 'A pipeline falhou!'
+        }
+    }
+}
